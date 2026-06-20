@@ -8,8 +8,8 @@ const register = (req, res) => {
     } catch (error) {
         return res.status(500).json({
             error: true,
-            message: "User successfully registered",
-            data: ["will add data later on"]
+            message: "Something went wrong!",
+            data: []
         });
     }
 }
@@ -24,8 +24,8 @@ const login = (req, res) => {
     } catch (error) {
         return res.status(500).json({
             error: true,
-            message: "User successfully registered",
-            data: ["will add data later on"]
+            message: "Something went wrong!",
+            data: []
         });
     }
 }
