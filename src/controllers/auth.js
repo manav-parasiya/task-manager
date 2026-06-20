@@ -18,7 +18,7 @@ const login = (req, res) => {
     try {
         return res.status(200).json({
             error: false,
-            message: "User successfully registered",
+            message: "User successfully logged in",
             data: ["will add data later on"]
         });
     } catch (error) {
