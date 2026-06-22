@@ -93,26 +93,32 @@ const login = async (req, res) => {
             })
         }
 
-        const user = await getUserByEmail(value?.email);
-        console.log('user ====>',user);
-        console.log("value?.password ====>",value?.password);
-        console.log("user[0]?.password ====>",user[0][0]?.password);
-        const hashedPassword = await bcrypt.compare(value?.password, user[0][0]?.password);
+        const users = await getUserByEmail(value?.email);
+        const user = users[0];
+
+        if(!user){
+            return res.status(401).json({
+            error:true,
+            message: "invalid email or password",
+            data: []
+        });
+        }
+        const hashedPassword = await bcrypt.compare(value?.password, user?.password);
         if(hashedPassword === true){
 
 
         const accessToken = await jwt.sign({
-            user_id: user[0][0]?.id,
-            name: user[0][0]?.name,
-            email: user[0][0]?.email
+            user_id: user?.id,
+            name: user?.name,
+            email: user?.email
         }, process.env.JWT_SECRET,
             {
                 expiresIn: "15m"
             });
         const refreshToken = await jwt.sign({
-            user_id: user[0][0]?.id,
-            name: user[0][0]?.name,
-            email: user[0][0]?.email
+            user_id: user?.id,
+            name: user?.name,
+            email: user?.email
         }, process.env.JWT_SECRET,
             {
                 expiresIn: "7d"
@@ -130,9 +136,9 @@ const login = async (req, res) => {
     }else{
         return res.status(401).json({
             error:true,
-            message: "invalid password",
+            message: "invalid email or password",
             data: []
-        })
+        });
     }
     } catch (error) {
         console.error("ERROR ===>", error);
