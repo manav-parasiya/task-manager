@@ -1,8 +1,10 @@
 const Router = require('express').Router();
 
+const verifyToken = require('../middlewares/verifyToken');
+
 const { register, login } = require('../controllers/auth');
 
-const verifyToken = require('../middlewares/verifyToken');
+const tasks = require('../controllers/tasks');
 
 const health = (req,res) => {
     try {
@@ -23,5 +25,6 @@ Router.post('/login', login);
 Router.post('/register',register);
 Router.use(verifyToken);
 Router.get('/health',health);
+Router.use('/tasks',tasks);
 
 module.exports = Router;

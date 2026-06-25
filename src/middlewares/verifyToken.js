@@ -5,8 +5,6 @@ const verifyToken = async (req, res, next) => {
     try {
         const token = JSON.stringify(req?.headers?.authorization)?.split(' ')[1].replace(`"`, '');
         if (token) {
-            console.log('token ===>', token);
-            console.log("process.env.JWT_SECRET ===>", process.env.JWT_SECRET);
             const result = await jwt.verify(token, process.env.JWT_SECRET);
 
             next();
