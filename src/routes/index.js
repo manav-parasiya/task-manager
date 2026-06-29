@@ -4,7 +4,7 @@ const verifyToken = require('../middlewares/verifyToken');
 
 const { register, login } = require('../controllers/auth');
 
-const tasks = require('../controllers/tasks');
+const tasks = require('./tasks');
 
 const health = (req,res) => {
     try {
