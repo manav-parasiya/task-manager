@@ -1,6 +1,5 @@
 const express = require('express');
-const Router = express.Router();
+const app = express();
+app.use(express.json());
 
-Router.use(express.json());
-
-module.exports = Router;
+module.exports = app;
