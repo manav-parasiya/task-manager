@@ -33,25 +33,16 @@ const  updateTaskModel = async (data) => {
 
 
 const deleteTaskModel = async (data) => {
-    // 1. Guard clause: Ensure data object contains filtering parameters
-    const keys = Object.keys(data);
-    if (keys.length === 0) {
-        throw new Error("No criteria provided for deleting tasks");
-    }
 
-    // 2. Chain parameters with 'AND' instead of commas for safe SQL matching
-    const whereClause = keys.map(key => `${key} = ?`).join(' AND ');
+    const { task_id, user_id } = data;
 
-    // 3. Keep standard values flatly aligned with array parameters
-    const queryValues = Object.values(data);
-
-    // 4. Construct statement with a single, clean WHERE structure
     const query = `
         DELETE FROM tasks 
-        WHERE ${whereClause}
+        WHERE id = ? AND user_id = ?
     `;
 
-    const [results] = await db.query(query, queryValues);
+    const [results] = await db.query(query, [task_id,user_id]);
+
     return results;
 }
 
