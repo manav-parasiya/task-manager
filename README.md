@@ -55,7 +55,6 @@ curl --location 'http://localhost:8000/v1/api/tasks' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer REPLACE_WITH_YOUR_API_TOKEN' \
 --data '{
-    "user_id": 15,
     "name": "Manav Testing",
     "description" : "Testing description",
     "priority": "High",
@@ -80,10 +79,6 @@ curl --location --request PUT 'http://localhost:8000/v1/api/tasks' \
 - **Delete /v1/api/tasks** For Delete a Task
 <br/>
 ```
-curl --location --request DELETE 'http://localhost:8000/v1/api/tasks' \
---header 'Content-Type: application/json' \
+curl --location --request DELETE 'http://localhost:8000/v1/api/tasks/1' \
 --header 'Authorization: Bearer REPLACE_WITH_YOUR_API_TOKEN' \
---data '{
-    "name": "Manav Testing"
-}'
 ```

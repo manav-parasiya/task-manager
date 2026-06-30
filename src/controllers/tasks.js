@@ -1,3 +1,5 @@
+const jwt = require('jsonwebtoken');
+
 const { fetchTasksModel, createTaskModel, updateTaskModel, deleteTaskModel } = require('../model/tasks');
 
 const fetchTasks = async (req, res) => {
@@ -24,15 +26,15 @@ const fetchTasks = async (req, res) => {
 
 const createTasks = async (req, res) => {
     try {
-
         let data = {
-            user_id,
             name,
             description,
             priority,
             due_date
         } = req.body;
-        const results = await createTaskModel(data);
+        
+        const userData = jwt.verify((req.headers.authorization).split('Bearer ').pop(), process.env.JWT_SECRET);
+        const results = await createTaskModel({...data,user_id :userData.user_id});
         return res.status(200).json({
             error: false,
             message: "Successfully Created Tasks",
@@ -80,12 +82,12 @@ const updateTask = async (req, res) => {
 
 const deleteTask = async (req, res) => {
     try {
-
-        let data = {
-            user_id,
-            name,
-            id
-        } = req.body;
+        const userData = jwt.verify((req.headers.authorization).split('Bearer ').pop(), process.env.JWT_SECRET);
+        let taskToDeleteId = { id } = req.params;
+        const data = {
+            task_id : id,
+            user_id: userData?.user_id
+        }
         const results = await deleteTaskModel(data);
         return res.status(200).json({
             error: false,

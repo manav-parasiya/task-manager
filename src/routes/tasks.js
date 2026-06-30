@@ -5,6 +5,6 @@ const { fetchTasks, createTasks, updateTask, deleteTask } = require('../controll
 Router.get('/', fetchTasks);
 Router.post('/', createTasks);
 Router.put('/', updateTask);
-Router.delete('/', deleteTask);
+Router.delete('/:id', deleteTask);
 
 module.exports = Router;
