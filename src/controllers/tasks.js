@@ -26,16 +26,11 @@ const fetchTasks = async (req, res) => {
 
 const createTasks = async (req, res) => {
     try {
-        let data = {
-            name,
-            description,
-            priority,
-            due_date
-        } = req.body;
-        
-        const userData = jwt.verify((req.headers.authorization).split('Bearer ').pop(), process.env.JWT_SECRET);
-        const results = await createTaskModel({...data,user_id :userData.user_id});
-        return res.status(200).json({
+        const data = req.body;
+
+        const userData = req.user;
+        const results = await createTaskModel({ ...data, user_id: userData.user_id });
+        return res.status(201).json({
             error: false,
             message: "Successfully Created Tasks",
             data: results
@@ -53,23 +48,31 @@ const createTasks = async (req, res) => {
 
 const updateTask = async (req, res) => {
     try {
+        const taskToUpdateId = Number(req.params.id);
 
-        let data = {
-            user_id,
-            name,
-            description,
-            priority,
-            due_date
-        } = req.body;
-        const results = await updateTaskModel(data);
-        return res.status(200).json({
-            error: false,
-            message: "Updated Fetched Tasks",
-            data: {
-                task_id: results
-            }
+        const data = req.body;
+
+        const userData = req.user;
+        const results = await updateTaskModel({
+            ...data,
+            user_id: userData?.user_id,
+            task_id: taskToUpdateId
         });
-
+        if (results?.updateTaskResults?.affectedRows >= 1) {
+            return res.status(200).json({
+                error: false,
+                message: "Task Updated Successfully",
+                data: {
+                    task: results?.latestTaskResultsAfterUpdate
+                }
+            });
+        } else {
+            return res.status(400).json({
+                error: true,
+                message: "Task not found",
+                data: []
+            });
+        }
     } catch (error) {
         console.error('Error ===>', error);
         return res.status(500).json({
@@ -82,21 +85,29 @@ const updateTask = async (req, res) => {
 
 const deleteTask = async (req, res) => {
     try {
-        const userData = jwt.verify((req.headers.authorization).split('Bearer ').pop(), process.env.JWT_SECRET);
-        let taskToDeleteId = { id } = req.params;
+        const userData = req.user;
+        const taskToDeleteId = Number(req.params.id);
+
         const data = {
-            task_id : id,
+            task_id: taskToDeleteId,
             user_id: userData?.user_id
         }
         const results = await deleteTaskModel(data);
-        return res.status(200).json({
-            error: false,
-            message: "Task Deleted Succesfully",
-            data: {
-                task_id: results
-            }
-        });
-
+        if (results?.affectedRows >= 1) {
+            return res.status(200).json({
+                error: false,
+                message: "Task Deleted Successfully",
+                data: {
+                    task_id: taskToDeleteId
+                }
+            });
+        }else{
+            return res.status(400).json({
+                error: true,
+                message: "Task not found",
+                data: []
+            })
+        }
     } catch (error) {
         console.error('Error ===>', error);
         return res.status(500).json({

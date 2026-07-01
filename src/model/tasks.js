@@ -11,24 +11,24 @@ const createTaskModel = async (data) => {
     return results;
 }
 
-const  updateTaskModel = async (data) => {
-    let { user_id, name, description, priority, due_date } = data;
-
-    let dataToUpdateKeys = Object.keys(data);
-    let dataToUpdateValues = Object.values(data);
-    
-    dataToUpdateKeys = dataToUpdateKeys.map(key => `${key} = ?`).join(', ');
-    const queryValues = [...Object.values(dataToUpdateValues), name];
-    console.log("queryValues ===>",queryValues);
-    console.log('dataToUpdate ===>',dataToUpdateKeys);
-
-     const query = `
+const updateTaskModel = async (data) => {
+    let { user_id, name, description, priority, due_date, task_id } = data;
+    const queryValues = [name,description,priority,due_date, task_id,user_id]
+    console.log("queryValues ====>",queryValues);
+    const query = `
         UPDATE tasks 
-        SET ${dataToUpdateKeys} 
-        WHERE name = ?
+        SET name = ?, description = ?, priority = ?, due_date = ?
+        WHERE id = ? AND user_id = ?
     `;
-    const [results] = await db.query(query, queryValues);
-    return results;
+    console.log(query, queryValues);
+    const [updateTaskResults] = await db.query(query, queryValues);
+    
+    const [latestTaskResultsAfterUpdate] = await db.query(`SELECT * FROM tasks WHERE id = ?`,[task_id]);
+    
+    return {
+        updateTaskResults,
+        latestTaskResultsAfterUpdate
+    };
 }
 
 
@@ -41,11 +41,11 @@ const deleteTaskModel = async (data) => {
         WHERE id = ? AND user_id = ?
     `;
 
-    const [results] = await db.query(query, [task_id,user_id]);
+    const [results] = await db.query(query, [task_id, user_id]);
 
     return results;
 }
 
 
 
-module.exports = { fetchTasksModel, createTaskModel,updateTaskModel, deleteTaskModel };
+module.exports = { fetchTasksModel, createTaskModel, updateTaskModel, deleteTaskModel };
