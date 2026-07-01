@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 
+const { createTaskValidation, updateTaskValidation, deleteTaskValidation } = require('../validation/tasks');
 const { fetchTasksModel, createTaskModel, updateTaskModel, deleteTaskModel } = require('../model/tasks');
 
 const fetchTasks = async (req, res) => {
@@ -29,13 +30,22 @@ const createTasks = async (req, res) => {
         const data = req.body;
 
         const userData = req.user;
-        const results = await createTaskModel({ ...data, user_id: userData.user_id });
+
+        const { error, value } = await createTaskValidation.validate({ ...data, user_id: userData.user_id }, { abortEarly: false });
+         if (error) {
+            const messages = error?.details?.map(e => e.message)
+            return res.status(400).json({
+                error: true,
+                message: "invalid input data",
+                data: messages.join(', ').replace(/"/g, '')
+            })
+        }
+        const results = await createTaskModel(value);
         return res.status(201).json({
             error: false,
             message: "Successfully Created Tasks",
             data: results
         });
-
     } catch (error) {
         console.error('Error ===>', error);
         return res.status(500).json({
@@ -53,10 +63,19 @@ const updateTask = async (req, res) => {
         const data = req.body;
 
         const userData = req.user;
+
+        const { error, value } = await updateTaskValidation.validate({ ...data, user_id: userData.user_id, task_id : taskToUpdateId }, { abortEarly: false });
+        if (error) {
+            const messages = error?.details?.map(e => e.message)
+            return res.status(400).json({
+                error: true,
+                message: "invalid input data",
+                data: messages.join(', ').replace(/"/g, '')
+            })
+        }
         const results = await updateTaskModel({
-            ...data,
-            user_id: userData?.user_id,
-            task_id: taskToUpdateId
+            ...value,
+            user_id: userData?.user_id
         });
         if (results?.updateTaskResults?.affectedRows >= 1) {
             return res.status(200).json({
@@ -67,7 +86,7 @@ const updateTask = async (req, res) => {
                 }
             });
         } else {
-            return res.status(400).json({
+            return res.status(404).json({
                 error: true,
                 message: "Task not found",
                 data: []
@@ -92,6 +111,15 @@ const deleteTask = async (req, res) => {
             task_id: taskToDeleteId,
             user_id: userData?.user_id
         }
+        const { error, value } = await deleteTaskValidation.validate({ ...data }, { abortEarly: false });
+        if (error) {
+            const messages = error?.details?.map(e => e.message)
+            return res.status(400).json({
+                error: true,
+                message: "invalid input data",
+                data: messages.join(', ').replace(/"/g, '')
+            })
+        }
         const results = await deleteTaskModel(data);
         if (results?.affectedRows >= 1) {
             return res.status(200).json({
@@ -101,8 +129,8 @@ const deleteTask = async (req, res) => {
                     task_id: taskToDeleteId
                 }
             });
-        }else{
-            return res.status(400).json({
+        } else {
+            return res.status(404).json({
                 error: true,
                 message: "Task not found",
                 data: []

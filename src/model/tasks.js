@@ -7,24 +7,27 @@ const fetchTasksModel = async (limit, offset) => {
 
 const createTaskModel = async (data) => {
     let { user_id, name, description, priority, due_date } = data;
-    const [results] = await db.query(`INSERT INTO tasks (user_id,name,description,priority,due_date) values (?,?,?,?,?)`, [user_id, name, description, priority, due_date]);
-    return results;
+    const [insertResults] = await db.query(`INSERT INTO tasks (user_id,name,description,priority,due_date) values (?,?,?,?,?)`, [user_id, name, description, priority, due_date]);
+
+    const [newCreatedTask] = await db.query('SELECT * FROM tasks WHERE id = ?', [insertResults?.insertId]);
+    return {
+        insertResults,
+        newCreatedTask
+    };
 }
 
 const updateTaskModel = async (data) => {
     let { user_id, name, description, priority, due_date, task_id } = data;
-    const queryValues = [name,description,priority,due_date, task_id,user_id]
-    console.log("queryValues ====>",queryValues);
+    const queryValues = [name, description, priority, due_date, task_id, user_id]
     const query = `
         UPDATE tasks 
         SET name = ?, description = ?, priority = ?, due_date = ?
         WHERE id = ? AND user_id = ?
     `;
-    console.log(query, queryValues);
     const [updateTaskResults] = await db.query(query, queryValues);
-    
-    const [latestTaskResultsAfterUpdate] = await db.query(`SELECT * FROM tasks WHERE id = ?`,[task_id]);
-    
+
+    const [latestTaskResultsAfterUpdate] = await db.query(`SELECT * FROM tasks WHERE id = ?`, [task_id]);
+
     return {
         updateTaskResults,
         latestTaskResultsAfterUpdate
