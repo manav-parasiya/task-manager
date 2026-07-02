@@ -12,4 +12,7 @@ const loginSchema = Joi.object({
     password: Joi.string().alphanum().min(8).required()
 });
 
-module.exports = { registerSchema, loginSchema };
+const refreshTokenSchema = Joi.object({
+   userRefreshToken: Joi.string().trim().required().label('refresh roken'),
+})
+module.exports = { registerSchema, loginSchema, refreshTokenSchema };
