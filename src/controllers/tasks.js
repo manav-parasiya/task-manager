@@ -32,7 +32,7 @@ const createTasks = async (req, res) => {
         const userData = req.user;
 
         const { error, value } = await createTaskValidation.validate({ ...data, user_id: userData.user_id }, { abortEarly: false });
-         if (error) {
+        if (error) {
             const messages = error?.details?.map(e => e.message)
             return res.status(400).json({
                 error: true,
@@ -41,11 +41,19 @@ const createTasks = async (req, res) => {
             })
         }
         const results = await createTaskModel(value);
-        return res.status(201).json({
-            error: false,
-            message: "Successfully Created Tasks",
-            data: results
-        });
+        if (results?.insertResults?.affectedRows >= 1) {
+            return res.status(201).json({
+                error: false,
+                message: "Successfully Created Tasks",
+                data: results?.newCreatedTask
+            });
+        } else {
+            return res.status(500).json({
+                error: true,
+                message: "task was not created",
+                data: []
+            });
+        }
     } catch (error) {
         console.error('Error ===>', error);
         return res.status(500).json({
@@ -64,7 +72,7 @@ const updateTask = async (req, res) => {
 
         const userData = req.user;
 
-        const { error, value } = await updateTaskValidation.validate({ ...data, user_id: userData.user_id, task_id : taskToUpdateId }, { abortEarly: false });
+        const { error, value } = await updateTaskValidation.validate({ ...data, user_id: userData.user_id, task_id: taskToUpdateId }, { abortEarly: false });
         if (error) {
             const messages = error?.details?.map(e => e.message)
             return res.status(400).json({
