@@ -1,6 +1,6 @@
 # Task Manager
 
-#### a Simple Task Manage App, Manage Your Task Easily
+#### a Simple Task Manager App, Manage Your Task Easily
 
 ## Features
 
@@ -10,6 +10,27 @@
 - Update Task
 - Delete Task
 
+## Tech Stack
+
+- Node.js
+- Express.js
+- MySQL,
+- JWT,
+- Bcrypt,
+- Joi
+
+## Get Started
+
+- Clone Repo: [git@github.com:manav-parasiya/task-manager.git](https://github.com/manav-parasiya/task-manager.git)
+- cd task-manager
+- npm install
+- copy .env.example into .env and fill the values for variables
+- npm run dev for Development and npm start for Production
+
+
+### NOTE: All APIs Need 'Authorization' in Headers
+
+### Live Server API: https://task-manager-production-4c2f.up.railway.app
 
 ## API EndPoints
 
@@ -17,7 +38,7 @@
 Reference Api Curl:
 <br/>
 ```
-curl --location 'http://localhost:8000/v1/api/login' \
+curl --location 'https://task-manager-production-4c2f.up.railway.app/v1/api/login' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "email": "email@example8.com",
@@ -29,7 +50,7 @@ curl --location 'http://localhost:8000/v1/api/login' \
 Reference Api Curl:
 <br/>
 ```
-curl --location 'http://localhost:8000/v1/api/register' \
+curl --location 'https://task-manager-production-4c2f.up.railway.app/v1/api/register' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "name" : "name",
@@ -43,7 +64,7 @@ curl --location 'http://localhost:8000/v1/api/register' \
 Reference Api Curl:
 <br/>
 ```
-curl --location --request POST 'http://localhost:8000/v1/api/refresh?refreshToken=REPLACE_WITH_YOUR_API_TOKEN' \
+curl --location --request POST 'https://task-manager-production-4c2f.up.railway.app/v1/api/refresh?refreshToken=REPLACE_WITH_YOUR_API_TOKEN' \
 ```
 
 - **GET /v1/api/tasks** For Get All Tasks
@@ -51,7 +72,7 @@ curl --location --request POST 'http://localhost:8000/v1/api/refresh?refreshToke
 Reference Api Curl:
 <br/>
 ```
-curl --location 'http://localhost:8000/v1/api/tasks?limit=5&offset=0' \
+curl --location 'https://task-manager-production-4c2f.up.railway.app/v1/api/tasks?limit=5&offset=0' \
 --header 'Authorization: Bearer REPLACE_WITH_YOUR_API_TOKEN' \
 ```
 - **POST /v1/api/tasks** For Create a Task
@@ -59,7 +80,7 @@ curl --location 'http://localhost:8000/v1/api/tasks?limit=5&offset=0' \
 Reference Api Curl:
 <br/>
 ```
-curl --location 'http://localhost:8000/v1/api/tasks' \
+curl --location 'https://task-manager-production-4c2f.up.railway.app/v1/api/tasks' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer REPLACE_WITH_YOUR_API_TOKEN' \
 --data '{
@@ -75,14 +96,13 @@ curl --location 'http://localhost:8000/v1/api/tasks' \
 Reference Api Curl:
 <br/>
 ```
-curl --location --request PUT 'http://localhost:8000/v1/api/tasks' \
+curl --location --request PUT 'https://task-manager-production-4c2f.up.railway.app/v1/api/tasks/1' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer REPLACE_WITH_YOUR_API_TOKEN' \
 --data '{
-    "user_id": 15,
-    "name": "Manav Testing",
-    "description" : "Testing description",
-    "priority": "High",
+    "name": "Manav Testing Update",
+    "description" : "Testing description Update",
+    "priority": "high",
     "due_date": "2026-06-26"
 }'
 ```
@@ -92,6 +112,6 @@ curl --location --request PUT 'http://localhost:8000/v1/api/tasks' \
 Reference Api Curl:
 <br/>
 ```
-curl --location --request DELETE 'http://localhost:8000/v1/api/tasks/1' \
+curl --location --request DELETE 'https://task-manager-production-4c2f.up.railway.app/v1/api/tasks/1' \
 --header 'Authorization: Bearer REPLACE_WITH_YOUR_API_TOKEN' \
 ```
