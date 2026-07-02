@@ -40,8 +40,8 @@ const notFound = (req,res) => {
 Router.post('/login', login);
 Router.post('/register',register);
 Router.post('/refresh',refreshApiToken);
-Router.use(verifyToken);
 Router.get('/health',health);
+Router.use(verifyToken);
 Router.use('/tasks',tasks);
 Router.use('/',notFound);
 
