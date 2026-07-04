@@ -1,0 +1,12 @@
+.task-listing-section{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.single-task-card-section{
+    background-color: #b4b4b4;
+    max-width: 300px;
+
+    padding: 10px;
+    border-radius: 5%;
+}
