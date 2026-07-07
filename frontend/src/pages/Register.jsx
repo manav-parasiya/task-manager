@@ -22,7 +22,6 @@ function Register() {
 
   const submitForm = async (e) => {
     e.preventDefault();
-    console.log('email ===>', email, 'password ====>', password, 'name ===>', name);
 
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -50,7 +49,6 @@ function Register() {
       },
     });
    
-    console.log('result ====>',result);
   }
   return (
     <>

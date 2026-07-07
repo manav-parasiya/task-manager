@@ -11,7 +11,7 @@ function SingleTaskCard(props) {
                 <p>{name}</p>
                 <p>Priority: {priority}</p>
                 <p>Status: {status}</p>
-                <p>{description && <p>Description: {description}</p>}</p>
+                {description && <p> Description: { description } </p> }
                 <p>due date: {due_date}</p>
             </div>
         </>

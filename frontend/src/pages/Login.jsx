@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import axios from 'axios'
+
 
 import '../styles/login.css';
 
@@ -35,9 +37,16 @@ function Login() {
 
   }
 
-  const submitForm = (e) => {
+  const submitForm = async (e) => {
     e.preventDefault();
-    console.log('email ===>', email, 'password ====>', password);
+
+    const result = await axios.post('https://task-manager-production-4c2f.up.railway.app/v1/api/login', {
+      email,
+      password
+    });
+
+    localStorage.setItem('accessToken',result?.data?.data?.accessToken);
+    localStorage.setItem('refreshToken',result?.data?.data?.refreshToken);
   }
   return (
     <>

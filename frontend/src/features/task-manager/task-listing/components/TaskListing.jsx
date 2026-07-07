@@ -4,93 +4,20 @@ import React, { useEffect, useState } from 'react'
 import SingleTaskCard from './SingleTaskCard';
 
 
+import api from '../../../../hooks/axiosApiInterceptor';
+
 function TaskListing() {
 
   const [TasksData, setTasksData] = useState([]);
+  const [data, SetData] = useState();
+
+  const getTasks = async () => {
+    const result = await api.get('https://task-manager-production-4c2f.up.railway.app/v1/api/tasks?limit=5&offset=0');
+    setTasksData(result?.data?.data)
+  }
 
   useEffect(() => {
-    setTasksData([
-      {
-        id: 1,
-        name: 'task name test',
-        priority: 'high',
-        status: 'pending',
-        due_date: 'Today',
-        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem necessitatibus reprehenderit ratione at deleniti itaque consectetur nemo quas impedit quasi!"
-      },
-      {
-        id: 2,
-        name: 'task name test',
-        priority: 'high',
-        status: 'pending',
-        due_date: 'Today',
-        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem necessitatibus reprehenderit ratione at deleniti itaque consectetur nemo quas impedit quasi!"
-      },
-      {
-        id: 3,
-        name: 'task name test',
-        priority: 'high',
-        status: 'pending',
-        due_date: 'Today',
-        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem necessitatibus reprehenderit ratione at deleniti itaque consectetur nemo quas impedit quasi!"
-      },
-      {
-        id: 4,
-        name: 'task name test',
-        priority: 'high',
-        status: 'pending',
-        due_date: 'Today',
-        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem necessitatibus reprehenderit ratione at deleniti itaque consectetur nemo quas impedit quasi!"
-      },
-      {
-        id: 5,
-        name: 'task name test',
-        priority: 'high',
-        status: 'pending',
-        due_date: 'Today',
-        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem necessitatibus reprehenderit ratione at deleniti itaque consectetur nemo quas impedit quasi!"
-      },
-      {
-        id: 6,
-        name: 'task name test',
-        priority: 'high',
-        status: 'pending',
-        due_date: 'Today',
-        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem necessitatibus reprehenderit ratione at deleniti itaque consectetur nemo quas impedit quasi!"
-      },
-      {
-        id: 7,
-        name: 'task name test',
-        priority: 'high',
-        status: 'pending',
-        due_date: 'Today',
-        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem necessitatibus reprehenderit ratione at deleniti itaque consectetur nemo quas impedit quasi!"
-      },
-      {
-        id: 8,
-        name: 'task name test',
-        priority: 'high',
-        status: 'pending',
-        due_date: 'Today',
-        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem necessitatibus reprehenderit ratione at deleniti itaque consectetur nemo quas impedit quasi!"
-      },
-      {
-        id: 9,
-        name: 'task name test',
-        priority: 'high',
-        status: 'pending',
-        due_date: 'Today',
-        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem necessitatibus reprehenderit ratione at deleniti itaque consectetur nemo quas impedit quasi!"
-      },
-      {
-        id: 10,
-        name: 'task name test',
-        priority: 'high',
-        status: 'pending',
-        due_date: 'Today',
-        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem necessitatibus reprehenderit ratione at deleniti itaque consectetur nemo quas impedit quasi!"
-      },
-    ])
+    getTasks();
   }, []);
 
 
@@ -103,7 +30,7 @@ function TaskListing() {
             <>
               {
                 TasksData?.map((task, index) => {
-                  return <SingleTaskCard taskData={task} key={task?.id}/>
+                  return <SingleTaskCard taskData={task} key={task?.id} />
                 })
               }
             </>
