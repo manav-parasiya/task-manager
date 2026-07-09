@@ -1,4 +1,5 @@
 import React from 'react'
+import moment from 'moment'
 
 // Stlye File import
 import '../styles/task-listing.css';
@@ -12,7 +13,7 @@ function SingleTaskCard(props) {
                 <p>Priority: {priority}</p>
                 <p>Status: {status}</p>
                 {description && <p> Description: { description } </p> }
-                <p>due date: {due_date}</p>
+                <p>due date: {moment(due_date).format('DD MMM YYYY')}</p>
             </div>
         </>
     )
