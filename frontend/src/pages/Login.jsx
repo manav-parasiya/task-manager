@@ -55,9 +55,9 @@ function Login() {
           <div className="login-card">
             <form action="" method="post" onSubmit={(e) => submitForm(e)}>
               <label htmlFor="email">Email</label>
-              <input type="email" onChange={(e) => updateEmail(e)} name="email" id="email" defaultValue={email} />
+              <input type="email" onChange={(e) => updateEmail(e)} name="email" id="email" value={email} />
               <label htmlFor="password">Password</label>
-              <input type="password" onChange={(e) => updatePassword(e)} name="password" id="password" defaultValue={password} />
+              <input type="password" onChange={(e) => updatePassword(e)} name="password" id="password" va={password} />
               <button type="submit">Login</button>
             </form>
           </div>

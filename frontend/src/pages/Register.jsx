@@ -57,11 +57,11 @@ function Register() {
           <div className="login-card">
             <form action="" method="post" onSubmit={(e) => submitForm(e)}>
               <label htmlFor="name">Name</label>
-              <input type="text" onChange={(e) => updateName(e)} name="name" id="name" defaultValue={name} />
+              <input type="text" onChange={(e) => updateName(e)} name="name" id="name" value={name} />
               <label htmlFor="email">Email</label>
-              <input type="email" onChange={(e) => updateEmail(e)} name="email" id="email" defaultValue={email} />
+              <input type="email" onChange={(e) => updateEmail(e)} name="email" id="email" value={email} />
               <label htmlFor="password">Password</label>
-              <input type="password" onChange={(e) => updatePassword(e)} name="password" id="password" defaultValue={password} />
+              <input type="password" onChange={(e) => updatePassword(e)} name="password" id="password" value={password} />
               <button type="submit">Register
 
               </button>

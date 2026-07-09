@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-
+import {Link} from 'react-router-dom'
 // Componets import
 import SingleTaskCard from './SingleTaskCard';
 
@@ -24,8 +24,8 @@ function TaskListing() {
   return (
     <>
       <div className='task-listing-section container'>
+        <Link to={'create-task'}>Create Task</Link>
         {
-
           TasksData?.length > 0 ? (
             <>
               {
