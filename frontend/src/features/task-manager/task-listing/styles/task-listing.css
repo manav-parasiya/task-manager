@@ -10,3 +10,7 @@
     padding: 10px;
     border-radius: 5%;
 }
+
+.single-task-card-section label,input{
+    display: block;
+}

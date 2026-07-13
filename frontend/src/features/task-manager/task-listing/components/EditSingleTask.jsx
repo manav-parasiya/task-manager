@@ -17,23 +17,41 @@ function EditSingleTask(props) {
 
     const getTasks = async () => {
         const result = await api.get(`https://task-manager-production-4c2f.up.railway.app/v1/api/tasks?limit=5&offset=0&id=${params?.id}`);
-        setTasksData(result?.data?.data)
+        setTasksData(result?.data?.data[0])
     }
+
+    const updateTask = async () => {
+        const result = await api.put(`https://task-manager-production-4c2f.up.railway.app/v1/api/tasks/${params?.id}`, TasksData);
+        // setTasksData(result?.data?.data[0])
+    }
+
 
     useEffect(() => {
         getTasks();
     }, []);
 
 
+    useEffect(() => {
+    }, [TasksData]);
     return (
         <>
             <div className='single-task-card-section'>
-                test
-                {/* <p>{name}</p>
-                <p>Priority: {priority}</p>
-                <p>Status: {status}</p>
-                {description && <p> Description: {description} </p>}
-                <p>due date: {moment(due_date).format('DD MMM YYYY')}</p> */}
+                <form action="" method="post" onSubmit={() =>{updateTask()}}>
+                    <label htmlFor="name">Task Name:</label>
+                    <input placeholder='task name' defaultValue={TasksData?.name} onChange={(e) => { setTasksData((prev) => {
+                        name: e.target.value,
+                        {...prev}
+                    })}}/>
+                    <label htmlFor="priority">priority:</label>
+                    <input defaultValue={TasksData?.priority} placeholder='task priority' />
+                    <label htmlFor="status">status:</label>
+                    <input defaultValue={TasksData?.status} placeholder='task status' />
+                    <label htmlFor="description">description:</label>
+                    <input defaultValue={TasksData?.description} placeholder='task description' />
+                    <p>due date: {moment(TasksData?.due_date).format('DD MMM YYYY')}</p>
+                    <button type="submit">Update Task</button>
+                </form>
+
             </div>
         </>
     )
