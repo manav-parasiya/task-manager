@@ -5,10 +5,11 @@ const { fetchTasksModel, createTaskModel, updateTaskModel, deleteTaskModel } = r
 
 const fetchTasks = async (req, res) => {
     try {
-        let { limit, offset } = req.query;
+        let { limit, offset,id } = req.query;
         limit = Number(limit);
         offset = Number(offset);
-        const results = await fetchTasksModel(limit, offset);
+        id = Number(id);
+        const results = await fetchTasksModel(limit, offset,id);
         return res.status(200).json({
             error: false,
             message: "Successfully Fetched Tasks",

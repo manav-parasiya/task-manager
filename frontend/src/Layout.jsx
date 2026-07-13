@@ -8,6 +8,7 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register';
 import CreateTask from './features/task-manager/task-listing/components/CreateSingleTask';
+import EditSingleTask from './features/task-manager/task-listing/components/EditSingleTask';
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
   {
     path: '/create-task',
     element: <CreateTask />
+  },
+  {
+    path: '/edit-task/:id',
+    element: <EditSingleTask />
   },
 ])
 
