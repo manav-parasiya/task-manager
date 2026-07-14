@@ -10,7 +10,6 @@ import '../styles/task-listing.css';
 
 function EditSingleTask(props) {
     let params = useParams();
-    console.log(params?.id)
 
     const [TasksData, setTasksData] = useState([]);
     const [data, SetData] = useState();
@@ -20,8 +19,18 @@ function EditSingleTask(props) {
         setTasksData(result?.data?.data[0])
     }
 
-    const updateTask = async () => {
-        const result = await api.put(`https://task-manager-production-4c2f.up.railway.app/v1/api/tasks/${params?.id}`, TasksData);
+    const updateTask = async (e) => {
+
+        e.preventDefault();
+        const result = await api.put(`https://task-manager-production-4c2f.up.railway.app/v1/api/tasks/${params?.id}`, 
+            {
+                due_date: TasksData?.due_date,
+                name: TasksData?.name,
+                priority: TasksData?.priority,
+                description: TasksData?.description,
+
+            }
+        );
         // setTasksData(result?.data?.data[0])
     }
 
@@ -36,12 +45,12 @@ function EditSingleTask(props) {
     return (
         <>
             <div className='single-task-card-section'>
-                <form action="" method="post" onSubmit={() =>{updateTask()}}>
+                <form onSubmit={(e) => updateTask(e)}>
                     <label htmlFor="name">Task Name:</label>
-                    <input placeholder='task name' defaultValue={TasksData?.name} onChange={(e) => { setTasksData((prev) => {
+                    <input placeholder='task name' defaultValue={TasksData?.name} onChange={(e) => { setTasksData((prev) => ({
                         name: e.target.value,
-                        {...prev}
-                    })}}/>
+                        ...prev
+                    }))}}/>
                     <label htmlFor="priority">priority:</label>
                     <input defaultValue={TasksData?.priority} placeholder='task priority' />
                     <label htmlFor="status">status:</label>

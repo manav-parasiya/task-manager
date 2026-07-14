@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-
+import { useNavigate } from 'react-router-dom';
 
 import '../styles/login.css';
 
 function Login() {
 
-
+  const navigate = useNavigate();
   // const [form,setForm] = useState({
   //   email : '',
   //   password: '',
@@ -47,6 +47,8 @@ function Login() {
 
     localStorage.setItem('accessToken',result?.data?.data?.accessToken);
     localStorage.setItem('refreshToken',result?.data?.data?.refreshToken);
+
+    navigate('/');
   }
   return (
     <>
