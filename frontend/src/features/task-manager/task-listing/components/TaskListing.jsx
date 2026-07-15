@@ -12,7 +12,7 @@ function TaskListing() {
   const [data, SetData] = useState();
 
   const getTasks = async () => {
-    const result = await api.get('https://task-manager-production-4c2f.up.railway.app/v1/api/tasks?limit=5&offset=0');
+    const result = await api.get('/v1/api/tasks?limit=5&offset=0');
     setTasksData(result?.data?.data)
   }
 

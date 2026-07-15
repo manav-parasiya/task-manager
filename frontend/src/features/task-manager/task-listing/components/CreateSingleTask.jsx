@@ -29,7 +29,7 @@ function CreateSingleTask() {
 
   const submitForm = async (e) => {
     e.preventDefault();
-    const result = await api.post('https://task-manager-production-4c2f.up.railway.app/v1/api/tasks', {
+    const result = await api.post('/v1/api/tasks', {
       name,
       description,
       priority,

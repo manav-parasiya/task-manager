@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 
+import api from '../hooks/axiosApiInterceptor';
+
+
 function Register() {
 
 
@@ -23,31 +26,13 @@ function Register() {
   const submitForm = async (e) => {
     e.preventDefault();
 
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
-    const raw = JSON.stringify({
-      "name": "manav256",
-      "email": "testemail@example.com",
-      "password": "12345678"
-    });
-
-    const requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: raw,
-      redirect: "follow"
-    };
-
-    const result = await axios({
-      method: 'post',
-      url: 'https://task-manager-production-4c2f.up.railway.app/v1/api/register',
-      data: {
+    const result = await api.post('/v1/api/register',
+      {
         name: name,
         email: email,
         password: password,
       },
-    });
+    );
    
   }
   return (

@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 
+import api from '../hooks/axiosApiInterceptor';
+
 import '../styles/login.css';
 
 function Login() {
@@ -40,7 +42,7 @@ function Login() {
   const submitForm = async (e) => {
     e.preventDefault();
 
-    const result = await axios.post('https://task-manager-production-4c2f.up.railway.app/v1/api/login', {
+    const result = await api.post('/v1/api/login', {
       email,
       password
     });

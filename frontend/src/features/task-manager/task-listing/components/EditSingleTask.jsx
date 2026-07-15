@@ -15,14 +15,14 @@ function EditSingleTask(props) {
     const [data, SetData] = useState();
 
     const getTasks = async () => {
-        const result = await api.get(`https://task-manager-production-4c2f.up.railway.app/v1/api/tasks?limit=5&offset=0&id=${params?.id}`);
+        const result = await api.get(`/v1/api/tasks?limit=5&offset=0&id=${params?.id}`);
         setTasksData(result?.data?.data[0])
     }
 
     const updateTask = async (e) => {
 
         e.preventDefault();
-        const result = await api.put(`https://task-manager-production-4c2f.up.railway.app/v1/api/tasks/${params?.id}`, 
+        const result = await api.put(`/v1/api/tasks/${params?.id}`, 
             {
                 due_date: TasksData?.due_date,
                 name: TasksData?.name,
