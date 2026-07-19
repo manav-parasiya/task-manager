@@ -22,7 +22,7 @@ function EditSingleTask(props) {
     const updateTask = async (e) => {
 
         e.preventDefault();
-        const result = await api.put(`/v1/api/tasks/${params?.id}`, 
+        const result = await api.put(`/v1/api/tasks/${params?.id}`,
             {
                 due_date: TasksData?.due_date,
                 name: TasksData?.name,
@@ -34,7 +34,13 @@ function EditSingleTask(props) {
         // setTasksData(result?.data?.data[0])
     }
 
+    const updateDetail = (e) => {
+        setTasksData((prev) => ({
+            ...prev,
+            [e.target.name]: e.target.value
 
+        }))
+    }
     useEffect(() => {
         getTasks();
     }, []);
@@ -47,17 +53,15 @@ function EditSingleTask(props) {
             <div className='single-task-card-section'>
                 <form onSubmit={(e) => updateTask(e)}>
                     <label htmlFor="name">Task Name:</label>
-                    <input placeholder='task name' defaultValue={TasksData?.name} onChange={(e) => { setTasksData((prev) => ({
-                        name: e.target.value,
-                        ...prev
-                    }))}}/>
+                    <input placeholder='task name' value={TasksData?.name} name='name' onChange={(e) => updateDetail(e)} />
                     <label htmlFor="priority">priority:</label>
-                    <input defaultValue={TasksData?.priority} placeholder='task priority' />
+                    <input value={TasksData?.priority} name='priority' placeholder='task priority' onChange={(e) => updateDetail(e)} />
                     <label htmlFor="status">status:</label>
-                    <input defaultValue={TasksData?.status} placeholder='task status' />
+                    <input value={TasksData?.status} name='status' placeholder='task status' onChange={(e) => updateDetail(e)} />
                     <label htmlFor="description">description:</label>
-                    <input defaultValue={TasksData?.description} placeholder='task description' />
-                    <p>due date: {moment(TasksData?.due_date).format('DD MMM YYYY')}</p>
+                    <input value={TasksData?.description} name='description' placeholder='task description' onChange={(e) => updateDetail(e)} />
+                    <label htmlFor="due_date">due date:</label>
+                    <input value={moment(TasksData?.due_date).format('DD-MM-YYYY')} name='due_date' placeholder='due date:' onChange={(e) => updateDetail(e)} />
                     <button type="submit">Update Task</button>
                 </form>
 

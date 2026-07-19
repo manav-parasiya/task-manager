@@ -40,17 +40,23 @@ function Login() {
   }
 
   const submitForm = async (e) => {
-    e.preventDefault();
+    try {
+      e.preventDefault();
 
     const result = await api.post('/v1/api/login', {
       email,
       password
     });
+    if (result?.data?.error === false) {
+      localStorage.setItem('accessToken', result?.data?.data?.accessToken);
+      localStorage.setItem('refreshToken', result?.data?.data?.refreshToken);
+      navigate('/');
+    }
+    } catch (error) {
+      console.log('error===>',error)
+    }
 
-    localStorage.setItem('accessToken',result?.data?.data?.accessToken);
-    localStorage.setItem('refreshToken',result?.data?.data?.refreshToken);
 
-    navigate('/');
   }
   return (
     <>
