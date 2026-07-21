@@ -56,8 +56,6 @@ function EditSingleTask(props) {
                     <input placeholder='task name' value={TasksData?.name} name='name' onChange={(e) => updateDetail(e)} />
                     <label htmlFor="priority">priority:</label>
                     <input value={TasksData?.priority} name='priority' placeholder='task priority' onChange={(e) => updateDetail(e)} />
-                    <label htmlFor="status">status:</label>
-                    <input value={TasksData?.status} name='status' placeholder='task status' onChange={(e) => updateDetail(e)} />
                     <label htmlFor="description">description:</label>
                     <input value={TasksData?.description} name='description' placeholder='task description' onChange={(e) => updateDetail(e)} />
                     <label htmlFor="due_date">due date:</label>
