@@ -16,7 +16,7 @@ function SingleTaskCard(props) {
     const { name, priority, description, due_date, id } = props?.taskData;
     const handleDelete = async (e) => {
         try {
-            
+
             e.stopPropagation();
             const result = await api.delete(`/v1/api/tasks/${id}`);
             props.getTasks();
@@ -31,14 +31,12 @@ function SingleTaskCard(props) {
     return (
         <>
             <div className='single-task-card-section' id={id} onClick={() => { navigate(`/edit-task/${id}`) }}>
-                <div className="circle" id={id} onClick={(e) => { handleDelete(e) }}>
-
-                </div>
+                <button className="circle" id={id} onClick={(e) => { handleDelete(e) }}></button>
                 <p>{name}</p>
                 <p>Priority: {priority}</p>
                 {description && <p> Description: {description} </p>}
                 <p>due date: {moment(due_date).format('DD MMM YYYY')}</p>
-            </div>
+            </div >
         </>
     )
 }
