@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import moment from 'moment'
 import { useParams } from "react-router";
+import { toast } from "react-toastify";
 
 import api from '../../../../hooks/axiosApiInterceptor';
 
@@ -20,18 +21,28 @@ function EditSingleTask(props) {
     }
 
     const updateTask = async (e) => {
+        try {
+            e.preventDefault();
+            const result = await api.put(`/v1/api/tasks/${params?.id}`,
+                {
+                    due_date: TasksData?.due_date,
+                    name: TasksData?.name,
+                    priority: TasksData?.priority,
+                    description: TasksData?.description,
 
-        e.preventDefault();
-        const result = await api.put(`/v1/api/tasks/${params?.id}`,
-            {
-                due_date: TasksData?.due_date,
-                name: TasksData?.name,
-                priority: TasksData?.priority,
-                description: TasksData?.description,
+                }
+            );
 
+            if (result?.data?.error === false) {
+                toast.success(result?.data?.message, {
+                    position: "top-right"
+                });
             }
-        );
-        // setTasksData(result?.data?.data[0])
+        } catch (error) {
+            toast.error(error?.message, {
+                position: "top-right"
+            });
+        }
     }
 
     const updateDetail = (e) => {
