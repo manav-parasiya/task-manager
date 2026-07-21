@@ -39,7 +39,7 @@ function EditSingleTask(props) {
                 });
             }
         } catch (error) {
-            toast.error(error?.message, {
+            toast.error(error?.response?.data?.message + " ," + error?.response?.data?.data || "Something Went Wrong!", {
                 position: "top-right"
             });
         }
