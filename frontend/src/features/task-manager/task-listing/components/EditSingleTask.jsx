@@ -59,7 +59,12 @@ function EditSingleTask(props) {
                     <label htmlFor="description">description:</label>
                     <input value={TasksData?.description} name='description' placeholder='task description' onChange={(e) => updateDetail(e)} />
                     <label htmlFor="due_date">due date:</label>
-                    <input value={moment(TasksData?.due_date).format('DD-MM-YYYY')} name='due_date' placeholder='due date:' onChange={(e) => updateDetail(e)} />
+                    <input
+                        type="date"
+                        name="due_date"
+                        value={TasksData?.due_date ? moment(TasksData.due_date).format('YYYY-MM-DD') : ''}
+                        onChange={updateDetail}
+                    />
                     <button type="submit">Update Task</button>
                 </form>
 
