@@ -30,7 +30,7 @@ function TaskListing() {
             <>
               {
                 TasksData?.map((task, index) => {
-                  return <SingleTaskCard taskData={task} key={task?.id} />
+                  return <SingleTaskCard taskData={task} key={task?.id} getTasks={getTasks}/>
                 })
               }
             </>
