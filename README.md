@@ -31,7 +31,9 @@
 
 ### NOTE: All APIs Need 'Authorization' in Headers
 
-### Live Server API: https://task-manager-production-4c2f.up.railway.app
+### Live website/frontend URL: https://task-manager-gray-eight-43.vercel.app
+
+### Live Server API URL: https://task-manager-production-4c2f.up.railway.app
 
 ## API EndPoints
 
