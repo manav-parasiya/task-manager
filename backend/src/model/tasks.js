@@ -1,13 +1,13 @@
 const db = require('../config/db');
 
-const fetchTasksModel = async (limit, offset, id = null) => {
+const fetchTasksModel = async ({ limit, offset, user_id, id = null }) => {
 
     let results = null;
 
     if (id) {
-        [results] = await db.query(`SELECT * FROM tasks WHERE id = ? LIMIT ? OFFSET ?`, [id,limit, offset]);
+        [results] = await db.query(`SELECT * FROM tasks WHERE id = ? AND user_id = ? LIMIT ? OFFSET ?`, [id, user_id, limit, offset]);
     } else {
-        [results] = await db.query(`SELECT * FROM tasks LIMIT ? OFFSET ?`, [limit, offset]);
+        [results] = await db.query(`SELECT * FROM tasks WHERE user_id = ? LIMIT ? OFFSET ?`, [user_id, limit, offset]);
     }
     return results;
 }

@@ -5,11 +5,24 @@ const { fetchTasksModel, createTaskModel, updateTaskModel, deleteTaskModel } = r
 
 const fetchTasks = async (req, res) => {
     try {
-        let { limit, offset,id } = req.query;
+        let { limit, offset, id } = req.query;
         limit = Number(limit);
         offset = Number(offset);
         id = Number(id);
-        const results = await fetchTasksModel(limit, offset,id);
+        const userData = req.user;
+        if (userData?.user_id === null) {
+            return res.status(400).json({
+                error: true,
+                message: "Something went wrong!",
+                data: []
+            });
+        }
+        const results = await fetchTasksModel({
+            limit,
+            offset,
+            user_id: userData?.user_id,
+            id
+        });
         return res.status(200).json({
             error: false,
             message: "Successfully Fetched Tasks",
