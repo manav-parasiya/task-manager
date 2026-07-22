@@ -12,12 +12,14 @@ import '../styles/task-listing.css';
 function EditSingleTask(props) {
     let params = useParams();
 
+    const [loading, setLoading] = useState(true);
     const [TasksData, setTasksData] = useState([]);
     const [data, SetData] = useState();
 
     const getTasks = async () => {
         const result = await api.get(`/v1/api/tasks?limit=5&offset=0&id=${params?.id}`);
         setTasksData(result?.data?.data[0])
+         setLoading(false);
     }
 
     const updateTask = async (e) => {
@@ -34,11 +36,14 @@ function EditSingleTask(props) {
             );
 
             if (result?.data?.error === false) {
+                setLoading(false);
                 toast.success(result?.data?.message, {
                     position: "top-right"
                 });
             }
+
         } catch (error) {
+            setLoading(false);
             toast.error(error?.response?.data?.message + " ," + error?.response?.data?.data || "Something Went Wrong!", {
                 position: "top-right"
             });
@@ -61,25 +66,38 @@ function EditSingleTask(props) {
     }, [TasksData]);
     return (
         <>
-            <div className='single-task-card-section'>
-                <form onSubmit={(e) => updateTask(e)}>
-                    <label htmlFor="name">Task Name:</label>
-                    <input placeholder='task name' value={TasksData?.name} name='name' onChange={(e) => updateDetail(e)} />
-                    <label htmlFor="priority">priority:</label>
-                    <input value={TasksData?.priority} name='priority' placeholder='task priority' onChange={(e) => updateDetail(e)} />
-                    <label htmlFor="description">description:</label>
-                    <input value={TasksData?.description} name='description' placeholder='task description' onChange={(e) => updateDetail(e)} />
-                    <label htmlFor="due_date">due date:</label>
-                    <input
-                        type="date"
-                        name="due_date"
-                        value={TasksData?.due_date ? moment(TasksData.due_date).format('YYYY-MM-DD') : ''}
-                        onChange={updateDetail}
-                    />
-                    <button type="submit">Update Task</button>
-                </form>
+            {
+                loading == false ?
+                    (
+                        <div className='single-task-card-section'>
+                            <form onSubmit={(e) => updateTask(e)}>
+                                <label htmlFor="name">Task Name:</label>
+                                <input placeholder='task name' value={TasksData?.name} name='name' onChange={(e) => updateDetail(e)} />
+                                <label htmlFor="priority">priority:</label>
+                                <input value={TasksData?.priority} name='priority' placeholder='task priority' onChange={(e) => updateDetail(e)} />
+                                <label htmlFor="description">description:</label>
+                                <input value={TasksData?.description} name='description' placeholder='task description' onChange={(e) => updateDetail(e)} />
+                                <label htmlFor="due_date">due date:</label>
+                                <input
+                                    type="date"
+                                    name="due_date"
+                                    value={TasksData?.due_date ? moment(TasksData.due_date).format('YYYY-MM-DD') : ''}
+                                    onChange={updateDetail}
+                                />
+                                <button type="submit">Update Task</button>
+                            </form>
 
-            </div>
+                        </div>
+                    )
+                    :
+                    (
+                        <>
+                            <p>Loading...</p>
+                        </>
+                    )
+
+            }
+
         </>
     )
 }
