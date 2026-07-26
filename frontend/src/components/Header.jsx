@@ -13,7 +13,6 @@ function Header() {
         <div className='logo-section'><p>Task Manager</p></div>
         <div className='navigation-section'>
           <ul>
-            <li>Settings</li>
             <li> <img src={profileIcon} height={40} width={40} alt="profile" /></li>
           </ul>
         </div>
