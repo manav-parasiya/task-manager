@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 // Stlye File import
 import "../styles/footer.css";
@@ -7,7 +8,7 @@ function Footer() {
   return (
     <>
       <div className='footer-section container'>
-        <p>Made with &#9829; By Manav Parasiya</p>
+        <p>Made By <a href="https://www.linkedin.com/in/manav-parasiya" target='_blank' >Manav Parasiya</a></p>
       </div>
     </>
   )

@@ -1,9 +1,15 @@
 .footer-section {
-
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center ;
+}
 
+.footer-section a {
+    text-decoration: none;
+    color: #fff;
 
+    &:hover{
+        color: #9a9a9a;
+    }
 }
