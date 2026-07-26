@@ -31,7 +31,7 @@ function SingleTaskCard(props) {
     return (
         <>
             <div className='single-task-card-section' id={id} onClick={() => { navigate(`/edit-task/${id}`) }}>
-                <button className="circle" id={id} onClick={(e) => { handleDelete(e) }}></button>
+                <button className="circle" id={id} onClick={(e) => { handleDelete(e) }}>Delete</button>
                 <p>{name}</p>
                 <p>Priority: {priority}</p>
                 {description && <p> Description: {description} </p>}

@@ -5,6 +5,7 @@
 }
 
 .single-task-card-section {
+    cursor: pointer;
     background-color: #b4b4b4;
     max-width: 500px;
 
@@ -18,14 +19,18 @@ input {
 }
 
 .circle {
-    width: 20px;
+    /* width: 20px;
     height: 20px;
     border-radius: 50%;
-    align-self: flex-start;
+    align-self: flex-start; */
     /* stop stretching to full width */
-    flex-shrink: 0;
+    /* flex-shrink: 0;
+    cursor: pointer; */
+
     background: #fff;
-    cursor: pointer;
+    outline: none;
+    border: 1px solid #000;
+    border-radius: 10%;
 }
 
 .selected {
