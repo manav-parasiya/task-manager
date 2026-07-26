@@ -1,10 +1,8 @@
 .header-section {
-
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-
 }
 
 .navigation-section ul {
@@ -16,4 +14,13 @@
     list-style: none;
 
     gap: 10px;
+}
+
+.navigation-section ul li a{
+    text-decoration: none;
+    color: #fff;
+
+    &:hover{
+        color: #9a9a9a;
+    }
 }
