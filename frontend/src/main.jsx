@@ -1,6 +1,5 @@
 import { createRoot } from 'react-dom/client'
 
-
 // Componets import
 import App from './App.jsx'
 
