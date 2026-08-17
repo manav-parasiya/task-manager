@@ -7,7 +7,7 @@ const { addUser, getUserByEmail } = require('../model/auth');
 const register = async (req, res) => {
     try {
 
-        let { name, email, password } = req?.body ;
+        let { name, email, password } = req?.body || {};
         let { error, value } = await registerSchema.validate({
             name,
             email,
