@@ -28,7 +28,7 @@ describe('POST /v1/api/register testing', () => {
         jest.clearAllMocks();
     });
     test('no name, email and password', async () => {
-        response = await request(app).post('/v1/api/register');
+        const response = await request(app).post('/v1/api/register');
         expect(response.statusCode).toBe(400)
         expect(response.body.message).toBe('invalid input data')
         expect(response.body.data).toBe('Name is required, Email is required, password is required')
@@ -36,7 +36,7 @@ describe('POST /v1/api/register testing', () => {
     });
 
     test('no name and password', async () => {
-        response = await request(app).post('/v1/api/register').send({ 'email': 'manavparasiya1020@gmail.com' });
+        const response = await request(app).post('/v1/api/register').send({ 'email': 'manavparasiya1020@gmail.com' });
         expect(response.statusCode).toBe(400)
         expect(response.body.message).toBe('invalid input data')
         expect(response.body.data).toBe('Name is required, password is required')
@@ -44,7 +44,7 @@ describe('POST /v1/api/register testing', () => {
     });
 
     test('no name', async () => {
-        response = await request(app).post('/v1/api/register').send({ 'email': 'manavparasiya1020@gmail.com', 'password': '12345678' });
+        const response = await request(app).post('/v1/api/register').send({ 'email': 'manavparasiya1020@gmail.com', 'password': '12345678' });
         expect(response.statusCode).toBe(400)
         expect(response.body.message).toBe('invalid input data')
         expect(response.body.data).toBe('Name is required')
@@ -52,7 +52,7 @@ describe('POST /v1/api/register testing', () => {
     });
 
     test('no password', async () => {
-        response = await request(app).post('/v1/api/register').send({ 'name': 'Manav Parasiya', 'email': 'manavparasiya1020@gmail.com' });
+        const response = await request(app).post('/v1/api/register').send({ 'name': 'Manav Parasiya', 'email': 'manavparasiya1020@gmail.com' });
         expect(response.statusCode).toBe(400)
         expect(response.body.message).toBe('invalid input data')
         expect(response.body.data).toBe('password is required')
@@ -72,7 +72,7 @@ describe('POST /v1/api/register testing', () => {
 
         getUserByEmail.mockResolvedValue([]);
 
-        addUser.mockResolvedValue([mockUser]);
+        addUser.mockResolvedValue({...mockUser,insertId: 1});
 
         // Mock jwt to return fake tokens
         jwt.sign
@@ -80,7 +80,7 @@ describe('POST /v1/api/register testing', () => {
             .mockReturnValueOnce('fake_refresh_token_456'); // Second call returns refreshToken
         
                     
-        response = await request(app).post('/v1/api/register').send({ 'name': 'Manav Parasiya', 'email': 'manavparasiya1020@gmail.com', 'password' : '12345678' });
+        const response = await request(app).post('/v1/api/register').send({ 'name': 'Manav Parasiya', 'email': 'manavparasiya1020@gmail.com', 'password' : '12345678' });
         expect(response.statusCode).toBe(201)
         expect(response.body.message).toBe('User successfully registered')
         expect(response.body.data).toEqual({"accessToken": "fake_access_token_123", "refreshToken": "fake_refresh_token_456"})
