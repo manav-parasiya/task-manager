@@ -22,6 +22,17 @@ const register = async (req, res) => {
                 data: messages.join(', ').replace(/"/g, '')
             })
         }
+        
+        let checkUserAlreadyExists = await getUserByEmail(email);
+        checkUserAlreadyExists = checkUserAlreadyExists[0];
+
+        if (checkUserAlreadyExists) {
+            return res.status(409).json({
+                error: true,
+                message: "Email Already Exists, Please Log In",
+                data: []
+            });
+        }
 
         const hashedPassword = await bcrypt.hash(password, Number(process.env.BCRYPT));
 
@@ -60,13 +71,6 @@ const register = async (req, res) => {
         });
     } catch (error) {
         console.error("ERROR ===>", error);
-        if (error?.code === 'ER_DUP_ENTRY') {
-            return res.status(409).json({
-                error: true,
-                message: "Email Already Exists, Please Log In",
-                data: []
-            });
-        }
         return res.status(500).json({
             error: true,
             message: "Something went wrong!",
