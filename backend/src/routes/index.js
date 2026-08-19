@@ -24,7 +24,7 @@ const health = (req,res) => {
 
 const notFound = (req,res) => {
     try {
-         return res.status(400).json({
+         return res.status(404).json({
             error: true,
             message: "Not Found",
             data: []

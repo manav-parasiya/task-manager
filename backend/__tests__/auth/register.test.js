@@ -1,9 +1,9 @@
 const request = require('supertest');
-const app = require('../app.js');
+const app = require('../../app.js');
 
-const { register } = require('../src/controllers/auth.js');
+const { register } = require('../../src/controllers/auth.js');
 
-jest.mock('../src/model/auth.js',()=>({
+jest.mock('../../src/model/auth.js',()=>({
     addUser: jest.fn(),
     getUserByEmail: jest.fn()
 }))
@@ -17,7 +17,7 @@ jest.mock('jsonwebtoken', () => ({
 jest.mock('bcrypt', () => ({
     hash: jest.fn()
 }));
-const { addUser , getUserByEmail} = require('../src/model/auth.js');
+const { addUser , getUserByEmail} = require('../../src/model/auth.js');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 

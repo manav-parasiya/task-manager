@@ -1,8 +1,8 @@
 const request = require('supertest');
-const app = require('../app.js');
+const app = require('../../app.js');
 
 // 1. Mock the database model
-jest.mock('../src/model/auth', () => ({
+jest.mock('../../src/model/auth', () => ({
     getUserByEmail: jest.fn()
 }));
 
@@ -17,7 +17,7 @@ jest.mock('jsonwebtoken', () => ({
 }));
 
 // Import the mocked functions so we can control them in tests
-const { getUserByEmail } = require('../src/model/auth');
+const { getUserByEmail } = require('../../src/model/auth.js');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 

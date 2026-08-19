@@ -6,11 +6,11 @@ const { fetchTasksModel, createTaskModel, updateTaskModel, deleteTaskModel } = r
 const fetchTasks = async (req, res) => {
     try {
         let { limit, offset, id } = req.query;
-        limit = Number(limit);
-        offset = Number(offset);
+        limit = Number(limit) || 5;
+        offset = Number(offset) || 0;
         id = Number(id);
         const userData = req.user;
-        if (userData?.user_id === null) {
+        if (userData?.user_id === null || userData?.user_id === undefined) {
             return res.status(400).json({
                 error: true,
                 message: "Something went wrong!",
@@ -41,11 +41,11 @@ const fetchTasks = async (req, res) => {
 
 const createTasks = async (req, res) => {
     try {
-        const data = req.body;
+        const { name, description = null, priority, due_date = null } = req.body;
 
         const userData = req.user;
 
-        const { error, value } = await createTaskValidation.validate({ ...data, user_id: userData.user_id }, { abortEarly: false });
+        const { error, value } = await createTaskValidation.validate({ name, description, priority, due_date, user_id: userData.user_id }, { abortEarly: false });
         if (error) {
             const messages = error?.details?.map(e => e.message)
             return res.status(400).json({

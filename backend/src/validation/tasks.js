@@ -3,9 +3,9 @@ const Joi = require('joi');
 const createTaskValidation = Joi.object({
     user_id: Joi.number().required(),
     name: Joi.string().trim().required(),
-    description: Joi.string().trim().optional(),
+    description: Joi.string().trim().optional().allow(null),
     priority: Joi.string().trim().valid('low','medium','high').required(),
-    due_date: Joi.date().optional()
+    due_date: Joi.date().optional().allow(null)
 });
 
 const updateTaskValidation = Joi.object({
