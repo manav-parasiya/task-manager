@@ -32,8 +32,8 @@
 ### NOTE: All APIs Need 'Authorization' in Headers
 
 ### Live website/frontend URL: https://task-manager-gray-eight-43.vercel.app
-
-### Live Server API URL: https://task-manager-production-4c2f.up.railway.app (offline as of now)
+### Live Server API URL: https://task-manager-zkf5.onrender.com (old: https://task-manager-production-4c2f.up.railway.app)
+- The free server sleeps, so the first load can take about a minute
 
 ## API EndPoints
 
