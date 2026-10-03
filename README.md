@@ -41,7 +41,7 @@
 Reference Api Curl:
 <br/>
 ```
-curl --location 'https://task-manager-production-4c2f.up.railway.app/v1/api/login' \
+curl --location 'https://task-manager-zkf5.onrender.com/v1/api/login' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "email": "email@example8.com",
@@ -53,7 +53,7 @@ curl --location 'https://task-manager-production-4c2f.up.railway.app/v1/api/logi
 Reference Api Curl:
 <br/>
 ```
-curl --location 'https://task-manager-production-4c2f.up.railway.app/v1/api/register' \
+curl --location 'https://task-manager-zkf5.onrender.com/v1/api/register' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "name" : "name",
@@ -67,7 +67,7 @@ curl --location 'https://task-manager-production-4c2f.up.railway.app/v1/api/regi
 Reference Api Curl:
 <br/>
 ```
-curl --location --request POST 'https://task-manager-production-4c2f.up.railway.app/v1/api/refresh?refreshToken=REPLACE_WITH_YOUR_API_TOKEN' \
+curl --location --request POST 'https://task-manager-zkf5.onrender.com/v1/api/refresh?refreshToken=REPLACE_WITH_YOUR_API_TOKEN' \
 ```
 
 - **GET /v1/api/tasks** For Get All Tasks
@@ -75,7 +75,7 @@ curl --location --request POST 'https://task-manager-production-4c2f.up.railway.
 Reference Api Curl:
 <br/>
 ```
-curl --location 'https://task-manager-production-4c2f.up.railway.app/v1/api/tasks?limit=5&offset=0' \
+curl --location 'https://task-manager-zkf5.onrender.com/v1/api/tasks?limit=5&offset=0' \
 --header 'Authorization: Bearer REPLACE_WITH_YOUR_API_TOKEN' \
 ```
 - **POST /v1/api/tasks** For Create a Task
@@ -83,7 +83,7 @@ curl --location 'https://task-manager-production-4c2f.up.railway.app/v1/api/task
 Reference Api Curl:
 <br/>
 ```
-curl --location 'https://task-manager-production-4c2f.up.railway.app/v1/api/tasks' \
+curl --location 'https://task-manager-zkf5.onrender.com/v1/api/tasks' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer REPLACE_WITH_YOUR_API_TOKEN' \
 --data '{
@@ -99,7 +99,7 @@ curl --location 'https://task-manager-production-4c2f.up.railway.app/v1/api/task
 Reference Api Curl:
 <br/>
 ```
-curl --location --request PUT 'https://task-manager-production-4c2f.up.railway.app/v1/api/tasks/1' \
+curl --location --request PUT 'https://task-manager-zkf5.onrender.com/v1/api/tasks/1' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer REPLACE_WITH_YOUR_API_TOKEN' \
 --data '{
@@ -115,7 +115,7 @@ curl --location --request PUT 'https://task-manager-production-4c2f.up.railway.a
 Reference Api Curl:
 <br/>
 ```
-curl --location --request DELETE 'https://task-manager-production-4c2f.up.railway.app/v1/api/tasks/1' \
+curl --location --request DELETE 'https://task-manager-zkf5.onrender.com/v1/api/tasks/1' \
 --header 'Authorization: Bearer REPLACE_WITH_YOUR_API_TOKEN' \
 ```
 
